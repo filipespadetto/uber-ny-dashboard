@@ -25,16 +25,20 @@ df = load_data()
 # MAIN APPLICATION
 st.title("Uber for NYC")
 st.markdown(
-    f"""
+    """
     Dashboard para análise de passageiros Uber na cidade de **Nova York**
-    ##### Raw Data
-    Carregando {df.shape[0]} linhas de entrada.
     """
 )
 
 # SIDEBAR RAW DATA
 st.sidebar.header("Configurações")
 if st.sidebar.checkbox("Mostrar Raw Data"):
+    st.markdown(
+        f"""
+        ##### Raw Data
+        Carregando {df.shape[0]} linhas de entrada.
+        """
+    )
     st.write(df)
 
 # MAP
@@ -47,6 +51,6 @@ select_entries.text(df_filtered.shape[0])
 st.map(df_filtered)
 
 # HISTOGRAM
-st.subheader("Histograma")
+st.subheader("Quantidade de pedidos por hora")
 hist = np.histogram(df.date.dt.hour, bins=24, range=(0, 24))[0]
 st.bar_chart(hist)
